@@ -54,8 +54,10 @@ Original documentation for this process is here: https://docs.microsoft.com/en-u
 5.  Eventually you should see the public IP address for your new app in the output, should be under **EXTERNAL-IP**.  HTTP to the public address and you should       reach the application.
 6.  I ended up entering the name of the ACR incorrectly in the manifest file.  These commands helped me work through the issue: 
     - ***kubectl get pods*** (helped me determine name of pod that was incorrectly deployed)
-    - ***kubectl describe pod [pod name from previous command]***
-    - ***kubectl delete -f azure-vote-all-in-one-redis.yaml***
+    - ***kubectl describe pod [pod name from previous command]*** (helped me see I had the ACR name configured incorrectly)
+    - ***kubectl delete -f azure-vote-all-in-one-redis.yaml*** (removed the resources I created with kubectl apply -f)
+7.  After updating the ACR with the correct name in the manifest file the Azure Voting app was now accessible.
+
 
 
 
