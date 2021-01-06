@@ -1,12 +1,29 @@
-# How to Deploy Voting App to AKS
+## How to Run the Voting App Locally in Docker Desktop
 
 Original documentation for this process here: https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-app
 
 1.  Clone repository to local computer with git clone
 2.  Make sure you have Docker Desktop installed on your PC or Mac
-3.  ***cd*** into aks_voting_app in your favorite command line tool
-4.    
-5.  
+3.  ***cd*** into aks_voting_app in your favorite command line interface
+4.  Next step is running ***docker-compose up -d***
+5.  After running the above command, 3 docker images will be downloaded on your PC or Mac.  It appears that the azure-vote-front uses a container image based on       Nginx that has Python Flask.  The backend container for this example uses Redis.  Run **docker images** in your local CLI to see the 3 different images that       were downloaded.
+6.  The containers are now running in detached mode in Docker and you can verify they're running with ***docker ps***
+7.  Also make sure app is working by going to http://localhost:8080
+8.  The app has now been verified locally and now we can upload the containers for our app into the Azure Container Registry.
+9.  Before starting the step above we should bring down our app that's running locally with this command: ***docker-compose down***
+
+## How to Upload the Voting App Container Images to ACR
+
+Original documentation for this process here: https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-acr
+
+1.  The Azure CLI is necessary for working with ACR, so be sure to install it.
+2.  First step is to log onto your Azure tenant with ***az login***
+3.  Run ***az account list*** to see your available subscriptions
+4.  Run ***az account set --subscription [subscription name]*** to switch to the subscription you would like to create the new resources in.
+5.  Create a resource group running a command like this: ***az group create --name AKSVotingApp --location westus2***
+6.  Create an Azure Container Registry (ACR) instance using the basic SKU: ***az acr create --resource-group AKSVotingApp --name [acrName] --sku Basic***
+
+
 
 
 ---
