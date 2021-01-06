@@ -1,6 +1,6 @@
 ## How to Run the Voting App Locally in Docker Desktop
 
-Original documentation for this process here: https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-app
+Original documentation for this process is here: https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-app
 
 1.  Clone repository to local computer with git clone
 2.  Make sure you have Docker Desktop installed on your PC or Mac
@@ -14,7 +14,7 @@ Original documentation for this process here: https://docs.microsoft.com/en-us/a
 
 ## How to Upload the Voting App Container Image to ACR
 
-Original documentation for this process here: https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-acr
+Original documentation for this process is here: https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-acr
 
 1.  The Azure CLI is necessary for working with ACR, so be sure to install it.
 2.  First step is to log onto your Azure tenant with ***az login***
@@ -34,10 +34,28 @@ Original documentation for this process here: https://docs.microsoft.com/en-us/a
 
 ## How to Deploy an AKS Cluster
 
-Original documentation for this process here: https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster
+Original documentation for this process is here: https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-cluster
 
 1.  We're now ready to create the AKS cluster by running this command: ***az aks create --resource-group AKSVotingApp --name [aksClusterName] --node-count 2 --       generate-ssh-keys --attach-acr [acrName]***
-2.  
+2.  After the cluster is deployed we now need to install kubectl with this command ***az aks install-cli***
+3.  We can now connect to the AKS cluster with this command: ***az aks get-credentials --resource-group AKSVotingApp --name [aksClusterName]***
+4.  Verify that your 2 nodes are running in AKS with this command: ***kubectl get nodes***
+
+## How to Deploy an App to your AKS Cluster
+
+Original documentation for this process is here: https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-deploy-application
+
+1.  We need to update the Kubernetes manifest file, azure-vote-all-in-one-redis.yaml, to include the container image we have uploaded in ACR.  Make sure
+    you are in the directory with the source files for this repo.  Run ***vi azure-vote-all-ine-one-redis.yaml***
+2.  In the VI editor we now want to replace the line with **image:** for azure-vote-front with our path to our uploaded container 
+    ***image:[acrName.azurecr.io/azure-vote-front:v1]***
+3.  To deploy the app to our AKS Cluster we're now running this: ***kubectl apply -f azure-vote-all-in-one-redis.yaml***
+4.  If you want to monitor the progress of the app coming up you can run this: ***kubectl get service azure-vote-front --watch***
+5.  Eventually you should see the public IP address for your new app in the output, should be under **EXTERNAL-IP**.  HTTP to the public address and you should       reach the application.
+6.  I ended up entering the name of the ACR incorrectly in the manifest file.  These commands helped me work through the issue: 
+    - ***kubectl get pods*** (helped me determine name of pod that was incorrectly deployed)
+    - ***kubectl describe pod [pod name from previous command]***
+    - ***kubectl delete -f azure-vote-all-in-one-redis.yaml***
 
 
 
