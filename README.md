@@ -1,3 +1,14 @@
+# How to Deploy Voting App to AKS
+
+Original documentation for this process here: https://docs.microsoft.com/en-us/azure/aks/tutorial-kubernetes-prepare-app
+
+1.  Clone repository to local computer with git clone
+2.  Make sure you have Docker Desktop installed on your PC or Mac
+3.  ***cd*** into aks_voting_app in your favorite command line tool
+4.    
+5.  
+
+
 ---
 page_type: sample
 languages:
@@ -29,3 +40,5 @@ provided by the bot. You will only need to do this once across all repos using o
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+
