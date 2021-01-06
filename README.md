@@ -56,7 +56,7 @@ Original documentation for this process is here: https://docs.microsoft.com/en-u
     - ***kubectl get pods*** (helped me determine name of pod that was incorrectly deployed)
     - ***kubectl describe pod [pod name from previous command]*** (helped me see I had the ACR name configured incorrectly)
     - ***kubectl delete -f azure-vote-all-in-one-redis.yaml*** (removed the resources I created with kubectl apply -f)
-7.  After updating the ACR with the correct name in the manifest file the Azure Voting app was now accessible.
+7.  After updating the ACR with the correct name in the manifest file, and rerunning kubectl apply -f azure-vote-all-in-one-redis.yaml the Azure Voting app was       now accessible.
 
 
 
